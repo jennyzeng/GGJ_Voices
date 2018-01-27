@@ -4,12 +4,13 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler {
+public class RecordButton : MonoBehaviour, IPointerUpHandler{
 
 	public int recordMaxLength;
 	public int recordMinLength;
 	public Image mask;
 	public GameObject afterRecordingShowUps;
+	public GameObject recordingPanelMask;
 	private float startTime;
 	private bool isRecordStarted;
 	private AudioSource aud;
@@ -19,6 +20,7 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 	{
 		mask.fillAmount=0;
 		afterRecordingShowUps.SetActive(false);
+		recordingPanelMask.SetActive(false);
 		aud = GetComponent<AudioSource>();
 		Application.RequestUserAuthorization (UserAuthorization.Microphone);
 		if (Microphone.devices.Length == 0) {
@@ -27,25 +29,27 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 		}
 		mic = Microphone.devices [0];
 	}
-    public void OnPointerDown(PointerEventData eventData)
-    {
-		StartRecord();
-    }
+    // public void OnPointerDown(PointerEventData eventData)
+    // {
+	// 	StartRecord();
+    // }
     public void OnPointerUp(PointerEventData eventData)
     {
-		EndRecord();
+		if (isRecordStarted)return;
+		else StartRecord();
     }
-
-
 	void StartRecord()
 	{
 		isRecordStarted = true;
+		recordingPanelMask.SetActive(true);
+		afterRecordingShowUps.SetActive(false);
 		startTime = Time.time;
 		aud.clip = Microphone.Start(mic, false, recordMaxLength, 44100);
 	}
 	void EndRecord()
 	{
 		if (!isRecordStarted) return;
+		recordingPanelMask.SetActive(false);
 		Microphone.End(mic);
 		isRecordStarted = false;
 		if (Time.time-startTime < recordMinLength) mask.fillAmount=0;
@@ -54,7 +58,6 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 			aud.Play();
 			afterRecordingShowUps.SetActive(true);
 		}
-		
 	}
 
 	public void SubmitRecord()
