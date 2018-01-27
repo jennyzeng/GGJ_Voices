@@ -10,6 +10,9 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 	private float startTime;
 	private bool isRecordStarted;
 	private AudioSource aud;
+	private AudioClip[] clips;
+	public int divides = 4;
+
 	private string mic;
 
 	void Start()
@@ -22,6 +25,7 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 			return;
 		}
 		mic = Microphone.devices [0];
+		clips = new AudioClip[divides];
 	}
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -49,11 +53,11 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 		if (!isRecordStarted) return;
 		Microphone.End(mic);
 		isRecordStarted = false;
-
-
-		aud.Play();
 		// TODO: save record.....
 	}
+
+
+
 	/// <summary>
 	/// Update is called every frame, if the MonoBehaviour is enabled.
 	/// </summary>
