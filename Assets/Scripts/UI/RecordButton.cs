@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler {
 
-	public float recordMaxLength;
+	public int recordMaxLength;
+	public int recordMinLength;
 	public Image mask;
+	public GameObject afterRecordingShowUps;
 	private float startTime;
 	private bool isRecordStarted;
 	private AudioSource aud;
-	private AudioClip[] clips;
-	public int divides = 4;
-
 	private string mic;
-
+	private string saveFileName="record"; // only one file for now
 	void Start()
 	{
 		mask.fillAmount=0;
+		afterRecordingShowUps.SetActive(false);
 		aud = GetComponent<AudioSource>();
 		Application.RequestUserAuthorization (UserAuthorization.Microphone);
 		if (Microphone.devices.Length == 0) {
@@ -25,16 +26,13 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 			return;
 		}
 		mic = Microphone.devices [0];
-		clips = new AudioClip[divides];
 	}
     public void OnPointerDown(PointerEventData eventData)
     {
-		Debug.Log("button down");
 		StartRecord();
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-		Debug.Log("button up");
 		EndRecord();
     }
 
@@ -43,24 +41,34 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 	{
 		isRecordStarted = true;
 		startTime = Time.time;
-
-		aud.clip = Microphone.Start(mic, false, 10, 44100);
-
-
+		aud.clip = Microphone.Start(mic, false, recordMaxLength, 44100);
 	}
 	void EndRecord()
 	{
 		if (!isRecordStarted) return;
 		Microphone.End(mic);
 		isRecordStarted = false;
-		// TODO: save record.....
+		if (Time.time-startTime < recordMinLength) mask.fillAmount=0;
+		else
+		{
+			aud.Play();
+			afterRecordingShowUps.SetActive(true);
+		}
+		
 	}
 
+	public void SubmitRecord()
+	{
+		// save and submit record
+		SavWav.Save(saveFileName, aud.clip);
+	}
 
+	public void PlayRecord()
+	{
+		// play the record again
+		aud.Play();
+	}
 
-	/// <summary>
-	/// Update is called every frame, if the MonoBehaviour is enabled.
-	/// </summary>
 	void Update()
 	{
 		if (isRecordStarted)
@@ -72,5 +80,4 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 			EndRecord();
 		}
 	}
-
 }
