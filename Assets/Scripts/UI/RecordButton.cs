@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler {
 
 	public float recordMaxLength;
+	public float recordMinLength;
 	public Image mask;
 	private float startTime;
 	private bool isRecordStarted;
-	public Button record;
 
 	void Start()
 	{
@@ -26,7 +26,6 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 		EndRecord();
     }
 
-
 	void StartRecord()
 	{
 		isRecordStarted = true;
@@ -37,8 +36,21 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 	{
 		if (!isRecordStarted) return;
 		isRecordStarted = false;
-		// TODO: save record.....
+		// TODO: play record.....
 	}
+
+	public void PlayRecord()
+	{
+		// TODO: play record
+		Debug.Log("play record");
+	}
+	public void SubmitRecord()
+	{
+		// save and submit record
+		Debug.Log("Submit record");
+	}
+
+
 	/// <summary>
 	/// Update is called every frame, if the MonoBehaviour is enabled.
 	/// </summary>
