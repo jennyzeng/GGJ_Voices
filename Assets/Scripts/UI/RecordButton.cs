@@ -9,11 +9,19 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 	public Image mask;
 	private float startTime;
 	private bool isRecordStarted;
-	public Button record;
+	private AudioSource aud;
+	private string mic;
 
 	void Start()
 	{
 		mask.fillAmount=0;
+		aud = GetComponent<AudioSource>();
+		Application.RequestUserAuthorization (UserAuthorization.Microphone);
+		if (Microphone.devices.Length == 0) {
+			Debug.LogWarning ("No microphone found to record audio clip sample with.");
+			return;
+		}
+		mic = Microphone.devices [0];
 	}
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -31,12 +39,19 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
 	{
 		isRecordStarted = true;
 		startTime = Time.time;
-		// TODO: start record...
+
+		aud.clip = Microphone.Start(mic, false, 10, 44100);
+
+
 	}
 	void EndRecord()
 	{
 		if (!isRecordStarted) return;
+		Microphone.End(mic);
 		isRecordStarted = false;
+
+
+		aud.Play();
 		// TODO: save record.....
 	}
 	/// <summary>
