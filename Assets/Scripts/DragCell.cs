@@ -22,6 +22,7 @@ public class DragCell : MonoBehaviour
 	private DragItem thisItem;
 	Image img;
 	public Color onEnterColor;
+	private Color defaultColor;
 	void OnMouseEnter()
 	{
 		mouseOnCell = this;
@@ -38,7 +39,7 @@ public class DragCell : MonoBehaviour
 	void OnMouseExit()
 	{
 		mouseOnCell = null;
-		img.color = Color.white;
+		img.color = defaultColor;
 		//isEntered = false;
 		//renderer.material.color = originalColor;
 	}
@@ -48,6 +49,7 @@ public class DragCell : MonoBehaviour
 		id = newCellCount;
 		newCellCount++;//new id 
 		cellList.Add(this);//count how many cells in total
+		defaultColor = new Color(img.color.r, img.color.g, img.color.b, img.color.a);
 	}
 
 	// Update is called once per frame
