@@ -41,12 +41,14 @@ public class Rearrange : MonoBehaviour {
 
 			slotPos.Add(slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left));
 			tempObj = Instantiate(slotObj, slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left),gameObject.transform.rotation ,theCanvas.transform) as GameObject;
-
+			
 		}
 		for (int i = 0; i < count; i++)//do twice seprately to maintian canvas hierachy
 		{
+			
 			itemPos.Add(itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left));
 			tempObj = Instantiate(itemObj, itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left) - Vector3.forward, gameObject.transform.rotation,theCanvas.transform) as GameObject;
+			
 		}
 
 	}
