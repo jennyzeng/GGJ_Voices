@@ -11,7 +11,7 @@ public class Rearrange : MonoBehaviour {
 	public GameObject slotObj;
 	public GameObject itemObj;
 	public List<AudioClip> clipList = new List<AudioClip>();
-	private List<int> realRelation = new List<int>();//user's anwser
+	private List<int> realRelation = new List<int>();//user's anwser //deprecated
 	private List<int> randRelation = new List<int>();//true anwser
 	private List<Vector3> slotPos = new List<Vector3>();
 	private List<Vector3> itemPos = new List<Vector3>();
@@ -25,6 +25,22 @@ public class Rearrange : MonoBehaviour {
 		{
 			realRelation.Add(-1);
 		}
+
+		GameObject tempObj;
+		for (int i = 0; i < count; i++)//create UI elements
+		{
+			//Debug.Log(randRelation[i]);
+
+			//slotPos.Add(slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left));
+			//tempObj = Instantiate(slotObj, slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left),gameObject.transform.rotation ,theCanvas.transform) as GameObject;
+			slotPos.Add(DragCell.cellList[i].transform.position);
+		}
+		for (int i = 0; i < count; i++)//do twice seprately to maintian canvas hierachy
+		{
+			//itemPos.Add(itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left));
+			//tempObj = Instantiate(itemObj, itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left) - Vector3.forward, gameObject.transform.rotation,theCanvas.transform) as GameObject;
+			itemPos.Add(DragItem.itemList[i].transform.position);
+		}
 		RandRelation();//generate anwser
 		//==Debug==
 		string temp = "";
@@ -34,21 +50,6 @@ public class Rearrange : MonoBehaviour {
 		}
 		Debug.Log(temp);
 		//===========
-		GameObject tempObj;
-		for (int i = 0; i < count; i++)//create UI elements
-		{
-			Debug.Log(randRelation[i]);
-
-			slotPos.Add(slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left));
-			tempObj = Instantiate(slotObj, slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left),gameObject.transform.rotation ,theCanvas.transform) as GameObject;
-
-		}
-		for (int i = 0; i < count; i++)//do twice seprately to maintian canvas hierachy
-		{
-			itemPos.Add(itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left));
-			tempObj = Instantiate(itemObj, itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left) - Vector3.forward, gameObject.transform.rotation,theCanvas.transform) as GameObject;
-		}
-
 	}
 	IEnumerator DelayCountCheck()//comparing the number of cells in the scene and the number set by user
 	{
@@ -71,6 +72,14 @@ public class Rearrange : MonoBehaviour {
 			t = Random.Range(0, temp.Count);
 			randRelation.Add(temp[t]);
 			temp.RemoveAt(t);
+		}
+		int cnt = 0;
+		foreach (int i in randRelation)
+		{
+			DragCell.cellList[cnt].id = cnt;
+			DragItem.itemList[cnt].id = i;
+			//Debug.Log(i);
+			cnt++;
 		}
 	}
 
@@ -98,7 +107,7 @@ public class Rearrange : MonoBehaviour {
 	{
 		for (int i = 0; i < count; i++)
 		{
-			if (realRelation[i] != randRelation[i])
+			if (realRelation[i] != i)
 			{
 				Debug.Log("Seq incorrect!");
 				//return false;
