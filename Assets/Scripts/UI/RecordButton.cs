@@ -52,12 +52,9 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler{
 		recordingPanelMask.SetActive(false);
 		Microphone.End(mic);
 		isRecordStarted = false;
-		if (Time.time-startTime < recordMinLength) mask.fillAmount=0;
-		else
-		{
-			aud.Play();
-			afterRecordingShowUps.SetActive(true);
-		}
+		aud.Play();
+		afterRecordingShowUps.SetActive(true);
+
 	}
 
 	public void SubmitRecord()
