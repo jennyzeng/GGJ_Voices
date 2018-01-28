@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : SingletonBase<GameManager> {
 	// [HideInInspector]
 	public AudioClip selectedClips;
-	public List<AudioClip> dividedClips;
+	private List<AudioClip> dividedClips;
 	public float audioLength;
 	public int numDivides;
 	List<AudioClip> randomList;
