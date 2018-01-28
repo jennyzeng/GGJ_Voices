@@ -5,9 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class RecordButton : MonoBehaviour, IPointerUpHandler{
-
-	public int recordMaxLength;
-	public int recordMinLength;
+	public int recordLength;
 	public Image mask;
 	public GameObject afterRecordingShowUps;
 	public GameObject recordingPanelMask;
@@ -44,7 +42,7 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler{
 		recordingPanelMask.SetActive(true);
 		afterRecordingShowUps.SetActive(false);
 		startTime = Time.time;
-		aud.clip = Microphone.Start(mic, false, recordMaxLength, 44100);
+		aud.clip = Microphone.Start(mic, false, recordLength, 44100);
 	}
 	void EndRecord()
 	{
@@ -73,9 +71,9 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler{
 	{
 		if (isRecordStarted)
 		{
-			mask.fillAmount = Mathf.Min((Time.time-startTime)/recordMaxLength, 1);
+			mask.fillAmount = Mathf.Min((Time.time-startTime)/recordLength, 1);
 		}
-		if (mask.fillAmount==1)
+		if (Microphone.IsRecording(mic)==false)
 		{
 			EndRecord();
 		}

@@ -189,8 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f41e17d6a44434782abc7a4e56a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordMaxLength: 10
-  recordMinLength: 4
+  recordLength: 10
   mask: {fileID: 114413140630513202}
   afterRecordingShowUps: {fileID: 0}
   recordingPanelMask: {fileID: 0}
