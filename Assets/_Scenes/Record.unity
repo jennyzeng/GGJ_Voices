@@ -342,6 +342,11 @@ Prefab:
       propertyPath: recordingPanelMask
       value: 
       objectReference: {fileID: 963471133}
+    - target: {fileID: 114413140630513202, guid: 1835d5b0a296c492d924b2de95e072d0,
+        type: 2}
+      propertyPath: m_FillAmount
+      value: 0.399
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1835d5b0a296c492d924b2de95e072d0, type: 2}
   m_IsPrefabParent: 0
