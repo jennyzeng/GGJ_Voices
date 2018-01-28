@@ -50,6 +50,26 @@ public class Rearrange : MonoBehaviour {
 		}
 		Debug.Log(temp);
 		//===========
+<<<<<<< HEAD
+=======
+		GameObject tempObj;
+		for (int i = 0; i < count; i++)//create UI elements
+		{
+			Debug.Log(randRelation[i]);
+
+			// slotPos.Add(slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left));
+			// tempObj = Instantiate(slotObj, slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left),gameObject.transform.rotation ,theCanvas.transform) as GameObject;
+			slotPos.Add(DragCell.cellList[i].transform.position);
+		}
+		for (int i = 0; i < count; i++)//do twice seprately to maintian canvas hierachy
+		{
+			
+			// itemPos.Add(itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left));
+			// tempObj = Instantiate(itemObj, itemAnchor + (i * itemInterval- count*itemInterval/2) * (-Vector3.left) - Vector3.forward, gameObject.transform.rotation,theCanvas.transform) as GameObject;
+			itemPos.Add(DragItem.itemList[i].transform.position);
+		}
+
+>>>>>>> 4fd535cab5e9608937165f0d0f2ce6864ff57bac
 	}
 	IEnumerator DelayCountCheck()//comparing the number of cells in the scene and the number set by user
 	{
