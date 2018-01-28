@@ -31,8 +31,13 @@ public class ARaudioController : SingletonBase<ARaudioController> {
 		randomList.Remove(clip);
 		if (randomList.Count == 0)
 		{
-			SceneManager.LoadScene(nextLoadScene);
+			StartCoroutine(WaitAndLoadScene(clip.length));
 		}
 	}
 
+	IEnumerator WaitAndLoadScene(float waitTime){
+		yield return new WaitForSeconds(waitTime);
+		SceneManager.LoadScene(nextLoadScene);
+		StopAllCoroutines();
+	}
 }
