@@ -26,8 +26,9 @@ public class ARaudioController : SingletonBase<ARaudioController> {
 		}
 		int idx = Random.Range(0, randomList.Count);
 		AudioClip clip = randomList[idx];
-		aud.clip = clip;
-		aud.Play();
+		AudioManager.Instance.RequestPlayClip(clip);
+		// aud.clip = clip;
+		// aud.Play();
 		randomList.Remove(clip);
 		if (randomList.Count == 0)
 		{

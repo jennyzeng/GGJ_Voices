@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(AudioSource))]
+// [RequireComponent(typeof(AudioSource))]
 public class DragItem : MonoBehaviour 
 {
 	private static int newItemCount = 0;
@@ -20,7 +20,8 @@ public class DragItem : MonoBehaviour
 	public DragCell thisCell = null;
 	public AudioClip dragInSound;
 	[HideInInspector]
-	public AudioSource audioSource;
+	// public AudioSource audioSource;
+	public AudioClip assignedClip;
 	/*
 	void OnMouseEnter()
 	{
@@ -72,7 +73,8 @@ public class DragItem : MonoBehaviour
 				DragCell.mouseOnCell.EnterCell(this);
 				isCelled = true;
 				thisCell = DragCell.mouseOnCell;
-				audioSource.Play();
+				// audioSource.Play();
+				AudioManager.Instance.RequestPlayClip(assignedClip);
 			}
 		}
 		else//out of cell
@@ -88,17 +90,17 @@ public class DragItem : MonoBehaviour
 	}
 	public void PlayCustomSound(AudioClip clip)
 	{
-		audioSource.clip = clip;
-		audioSource.Play();
+		// audioSource.clip = clip;
+		// audioSource.Play();
 	}
 
 	// Use this for initialization
 	void Awake () {
-		audioSource = GetComponent<AudioSource>();
-		if (dragInSound)
-		{
-			audioSource.clip = dragInSound;
-		}
+		// audioSource = GetComponent<AudioSource>();
+		// if (dragInSound)
+		// {
+		// 	audioSource.clip = dragInSound;
+		// }
 		id = newItemCount;
 		newItemCount++;//new id
 		itemList.Add(this);

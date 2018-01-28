@@ -8,5 +8,9 @@ public class OnClickLoadScene : MonoBehaviour {
 	{
 		SceneManager.LoadScene(name);
 	}
+	public void OnClickDeleteGameManager()
+	{
+		Destroy(GameManager.Instance.gameObject);
+	}
 
 }

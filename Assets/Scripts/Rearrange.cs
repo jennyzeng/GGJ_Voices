@@ -104,7 +104,7 @@ public class Rearrange : MonoBehaviour {
 		{
 			DragCell.cellList[cnt].id = cnt;
 			DragItem.itemList[cnt].id = i;
-            DragItem.itemList[cnt].audioSource.clip = clipList[i];
+            DragItem.itemList[cnt].assignedClip = clipList[i];
 			//Debug.Log(DragItem.itemList[cnt].audioSource.clip);
 			cnt++;
 		}
@@ -138,14 +138,16 @@ public class Rearrange : MonoBehaviour {
 			{
 				Debug.Log("Seq incorrect!");
                 //return false;
-                audioSource.clip = wrongClip;
-                audioSource.Play();
+                // audioSource.clip = wrongClip;
+                // audioSource.Play();
+				AudioManager.Instance.RequestPlayClip(wrongClip);
                 return;
 			}
 		}
 		Debug.Log("Seq correct!");
-        audioSource.clip = GameManager.Instance.selectedClips;
-        audioSource.Play();
+        // audioSource.clip = GameManager.Instance.selectedClips;
+		AudioManager.Instance.RequestPlayClip( GameManager.Instance.selectedClips);
+        // audioSource.Play();
 	}
 	public void ClearUserAns()
 	{
@@ -160,28 +162,28 @@ public class Rearrange : MonoBehaviour {
 		}
 	}
 	// Update is called once per frame
-	void Update () 
-	{
+	// void Update () 
+	// {
 	
-	}
+	// }
 
 
-    IEnumerator wait()
-    {
-        audioSource.clip = clipList[0];
-        audioSource.Play();
-        yield return new WaitForSeconds(3f);
-        audioSource.clip = clipList[1];
-        audioSource.Play();
-        yield return new WaitForSeconds(3f);
-        audioSource.clip = clipList[2];
-        audioSource.Play();
-        yield return new WaitForSeconds(3f);
-        audioSource.clip = clipList[3];
-        audioSource.Play();
+    // IEnumerator wait()
+    // {
+    //     audioSource.clip = clipList[0];
+    //     audioSource.Play();
+    //     yield return new WaitForSeconds(3f);
+    //     audioSource.clip = clipList[1];
+    //     audioSource.Play();
+    //     yield return new WaitForSeconds(3f);
+    //     audioSource.clip = clipList[2];
+    //     audioSource.Play();
+    //     yield return new WaitForSeconds(3f);
+    //     audioSource.clip = clipList[3];
+    //     audioSource.Play();
 
-        yield return new WaitForSeconds(3f);
+    //     yield return new WaitForSeconds(3f);
 
-        StopAllCoroutines();
-    }
+    //     StopAllCoroutines();
+    // }
 }
