@@ -11,7 +11,7 @@ public class songlist : MonoBehaviour {
 	{
 		aud.clip = list[Random.Range(0, list.Length)] as AudioClip;
 		aud.Play ();
-		GameManager.Instance.selectedAudio=aud.clip;
+		GameManager.Instance.selectedClips=aud.clip;
 	}
 	// Use this for initialization
 	void Start () {
