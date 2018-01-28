@@ -23,6 +23,8 @@ public class DragCell : MonoBehaviour
 	Image img;
 	public Color onEnterColor;
 	private Color defaultColor;
+
+
 	void OnMouseEnter()
 	{
 		mouseOnCell = this;
@@ -43,6 +45,21 @@ public class DragCell : MonoBehaviour
 		//isEntered = false;
 		//renderer.material.color = originalColor;
 	}
+
+
+	public void mouseEnter()
+	{
+		mouseOnCell = this;
+		img.color = onEnterColor;
+	}
+
+	public void mouseExit()
+	{
+		mouseOnCell = null;
+		img.color = defaultColor;
+	}
+
+
 	// Use this for initialization
 	void Start () {
 		img = this.gameObject.GetComponent<Image>();

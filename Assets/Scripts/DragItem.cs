@@ -33,7 +33,7 @@ public class DragItem : MonoBehaviour
 		renderer.material.color = originalColor;
 	}
 	*/
-	void OnMouseDown()
+	public void MouseDown()
 	{
 		distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 		draggingItem = this;
@@ -41,7 +41,7 @@ public class DragItem : MonoBehaviour
 		dragging = true;
 	}
 
-	void OnMouseUp()
+	public void MouseUp()
 	{
 		draggingItem = null;
 		isDragging = false;//the global one 
