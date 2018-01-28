@@ -46,26 +46,27 @@ public class DragItem : MonoBehaviour
 		draggingItem = null;
 		isDragging = false;//the global one 
 		dragging = false;
+
 		if (DragCell.mouseOnCell && (DragCell.mouseOnCell.isTaken ==false))
 		{
-			if (mustMatch)
+			// if (mustMatch)
+			// {
+			// 	if (this.id == DragCell.mouseOnCell.id)
+			// 	{
+			// 		DragCell.mouseOnCell.AlignToAnchor(this);//successfully enter
+			// 		if (DragCell.OnEnterCell != null)
+			// 			DragCell.OnEnterCell(this.id, DragCell.mouseOnCell.id);
+			// 		isCelled = true;
+			// 		thisCell = DragCell.mouseOnCell;
+			// 	}
+				// else
+				// {
+			if (DragCell.OnEnterCellFailed != null)
 			{
-				if (this.id == DragCell.mouseOnCell.id)
-				{
-					DragCell.mouseOnCell.AlignToAnchor(this);//successfully enter
-					if (DragCell.OnEnterCell != null)
-						DragCell.OnEnterCell(this.id, DragCell.mouseOnCell.id);
-					isCelled = true;
-					thisCell = DragCell.mouseOnCell;
-				}
-				else
-				{
-					if (DragCell.OnEnterCellFailed != null)
-					{
-						DragCell.OnEnterCellFailed(this.id, DragCell.mouseOnCell.id);//boardcast entering failed
-					}
-				}
+				DragCell.OnEnterCellFailed(this.id, DragCell.mouseOnCell.id);//boardcast entering failed
 			}
+				// }
+			// }
 			else
 			{	
 				if (DragCell.OnEnterCell != null)
@@ -88,6 +89,9 @@ public class DragItem : MonoBehaviour
 			}
 		}
 	}
+
+
+
 	public void PlayCustomSound(AudioClip clip)
 	{
 		// audioSource.clip = clip;

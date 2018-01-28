@@ -10,9 +10,16 @@ public class songlist : MonoBehaviour {
 	private string musicPath="music";
 	public void PlayMusic()
 	{
-		aud.clip = list[Random.Range(0, list.Length)] as AudioClip;
-		// aud.Play ();
-		GameManager.Instance.selectedClips=aud.clip;
+		AudioClip clip = list[Random.Range(0, list.Length)] as AudioClip;
+		GameManager.Instance.selectedClips=clip;
+		aud.Play ();
+		AudioManager.Instance.RequestStopClip();
+		TimerManager.Instance.AddTimer(aud.clip.length-1,this.gameObject, LoadNextScene );
+		// SceneManager.LoadScene("AR");
+	}
+
+	void LoadNextScene()
+	{
 		SceneManager.LoadScene("AR");
 	}
 	// Use this for initialization

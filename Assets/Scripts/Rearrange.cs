@@ -11,6 +11,7 @@ public class Rearrange : MonoBehaviour {
 	public float itemInterval = 10f;
 	public GameObject slotObj;
 	public GameObject itemObj;
+	public GameObject onCorrectShowItem;
     public AudioClip wrongClip;
 	public List<AudioClip> clipList = new List<AudioClip>();
 	private List<int> realRelation = new List<int>();//user's anwser //deprecated
@@ -22,6 +23,7 @@ public class Rearrange : MonoBehaviour {
 	void Start () 
 	{
         audioSource = GetComponent<AudioSource>();
+		onCorrectShowItem.SetActive(false);
         clipList = GameManager.Instance.GetDividedList();
         //for(int i =0;i<clipList.Count;i++)
         //    Debug.Log(clipList[i]);
@@ -147,6 +149,7 @@ public class Rearrange : MonoBehaviour {
 		Debug.Log("Seq correct!");
         // audioSource.clip = GameManager.Instance.selectedClips;
 		AudioManager.Instance.RequestPlayClip( GameManager.Instance.selectedClips);
+		onCorrectShowItem.SetActive(true);
         // audioSource.Play();
 	}
 	public void ClearUserAns()
@@ -160,6 +163,8 @@ public class Rearrange : MonoBehaviour {
 			DragItem.itemList[i].transform.position = itemPos[i];
 			realRelation[i] = -1;
 		}
+		onCorrectShowItem.SetActive(false);
+		AudioManager.Instance.RequestStopClip();
 	}
 	// Update is called once per frame
 	// void Update () 
