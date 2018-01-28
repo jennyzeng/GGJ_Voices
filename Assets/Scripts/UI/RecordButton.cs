@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class RecordButton : MonoBehaviour, IPointerUpHandler{
 	public int recordLength;
 	public Image mask;
@@ -56,6 +57,8 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler{
 	{
 		// save and submit record
 		SavWav.Save(saveFileName, aud.clip);
+		GameManager.Instance.selectedClips = aud.clip;
+		
 	}
 
 	public void PlayRecord()

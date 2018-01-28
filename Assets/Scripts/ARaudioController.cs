@@ -20,11 +20,11 @@ public class ARaudioController : SingletonBase<ARaudioController> {
     }
 	public void ButtonClickRequest()
 	{
-		if (randomList.Count==0)
+		if (randomList==null)
 		{
-			randomList = GameManager.Instance.GetDividedList();
+			randomList = new List<AudioClip>(GameManager.Instance.GetDividedList());
 		}
-		int idx = Random.Range(0, randomList.Count-1);
+		int idx = Random.Range(0, randomList.Count);
 		AudioClip clip = randomList[idx];
 		aud.clip = clip;
 		aud.Play();

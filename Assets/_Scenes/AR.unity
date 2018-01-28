@@ -1710,6 +1710,10 @@ Prefab:
       propertyPath: numDivides
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1353616220547976, guid: 15fab1364e5854032bd425b151ec8553, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15fab1364e5854032bd425b151ec8553, type: 2}
   m_IsPrefabParent: 0
