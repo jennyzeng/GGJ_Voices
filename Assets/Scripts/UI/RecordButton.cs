@@ -27,10 +27,7 @@ public class RecordButton : MonoBehaviour, IPointerUpHandler{
 		}
 		mic = Microphone.devices [0];
 	}
-    // public void OnPointerDown(PointerEventData eventData)
-    // {
-	// 	StartRecord();
-    // }
+
     public void OnPointerUp(PointerEventData eventData)
     {
 		if (isRecordStarted)return;
