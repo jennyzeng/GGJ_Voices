@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+[RequireComponent(typeof(AudioSource))]
 public class Rearrange : MonoBehaviour {
 	public Canvas theCanvas;
 	public int count = 4;
@@ -10,14 +11,22 @@ public class Rearrange : MonoBehaviour {
 	public float itemInterval = 10f;
 	public GameObject slotObj;
 	public GameObject itemObj;
+    public AudioClip wrongClip;
 	public List<AudioClip> clipList = new List<AudioClip>();
 	private List<int> realRelation = new List<int>();//user's anwser //deprecated
 	private List<int> randRelation = new List<int>();//true anwser
 	private List<Vector3> slotPos = new List<Vector3>();
 	private List<Vector3> itemPos = new List<Vector3>();
-	// Use this for initialization
+    private AudioSource audioSource;
+    // Use this for initialization
 	void Start () 
 	{
+        audioSource = GetComponent<AudioSource>();
+        clipList = GameManager.Instance.GetDividedList();
+        //for(int i =0;i<clipList.Count;i++)
+        //    Debug.Log(clipList[i]);
+        //StartCoroutine(wait());
+
 		DragCell.OnEnterCell += OnEnterCallBack;
 		DragCell.OnLeaveCell += OnLeaveCallBack;
 		StartCoroutine(DelayCountCheck());//num check 
@@ -50,12 +59,10 @@ public class Rearrange : MonoBehaviour {
 		}
 		Debug.Log(temp);
 		//===========
-<<<<<<< HEAD
-=======
-		GameObject tempObj;
+
+		// GameObject tempObj;
 		for (int i = 0; i < count; i++)//create UI elements
 		{
-			Debug.Log(randRelation[i]);
 
 			// slotPos.Add(slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left));
 			// tempObj = Instantiate(slotObj, slotAnchor + (i * slotInterval- count*slotInterval/2) * (-Vector3.left),gameObject.transform.rotation ,theCanvas.transform) as GameObject;
@@ -69,7 +76,6 @@ public class Rearrange : MonoBehaviour {
 			itemPos.Add(DragItem.itemList[i].transform.position);
 		}
 
->>>>>>> 4fd535cab5e9608937165f0d0f2ce6864ff57bac
 	}
 	IEnumerator DelayCountCheck()//comparing the number of cells in the scene and the number set by user
 	{
@@ -98,7 +104,8 @@ public class Rearrange : MonoBehaviour {
 		{
 			DragCell.cellList[cnt].id = cnt;
 			DragItem.itemList[cnt].id = i;
-			//Debug.Log(i);
+            DragItem.itemList[cnt].audioSource.clip = clipList[i];
+			//Debug.Log(DragItem.itemList[cnt].audioSource.clip);
 			cnt++;
 		}
 	}
@@ -130,12 +137,15 @@ public class Rearrange : MonoBehaviour {
 			if (realRelation[i] != i)
 			{
 				Debug.Log("Seq incorrect!");
-				//return false;
-				return;
+                //return false;
+                audioSource.clip = wrongClip;
+                audioSource.Play();
+                return;
 			}
 		}
 		Debug.Log("Seq correct!");
-		//return true;	
+        audioSource.clip = GameManager.Instance.selectedClips;
+        audioSource.Play();
 	}
 	public void ClearUserAns()
 	{
@@ -154,4 +164,24 @@ public class Rearrange : MonoBehaviour {
 	{
 	
 	}
+
+
+    IEnumerator wait()
+    {
+        audioSource.clip = clipList[0];
+        audioSource.Play();
+        yield return new WaitForSeconds(3f);
+        audioSource.clip = clipList[1];
+        audioSource.Play();
+        yield return new WaitForSeconds(3f);
+        audioSource.clip = clipList[2];
+        audioSource.Play();
+        yield return new WaitForSeconds(3f);
+        audioSource.clip = clipList[3];
+        audioSource.Play();
+
+        yield return new WaitForSeconds(3f);
+
+        StopAllCoroutines();
+    }
 }

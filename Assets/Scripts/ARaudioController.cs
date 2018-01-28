@@ -7,7 +7,7 @@ public class ARaudioController : SingletonBase<ARaudioController> {
 
 	List<AudioClip> randomList;
 	private AudioSource aud;
-	private string nextLoadScene="Menu";
+	private string nextLoadScene="rearranging_test";
 
 	void Start()
 	{

@@ -93,7 +93,7 @@ public class DragItem : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		audioSource = GetComponent<AudioSource>();
 		if (dragInSound)
 		{

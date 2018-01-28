@@ -7,7 +7,7 @@ public class SetList : MonoBehaviour {
 	public List<DragCell> cells = new List<DragCell>();
 	public List<DragItem> items = new List<DragItem>();
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		DragCell.cellList = cells;
 		DragItem.itemList = items;
 	}

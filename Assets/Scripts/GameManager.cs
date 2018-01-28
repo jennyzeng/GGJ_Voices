@@ -24,7 +24,7 @@ public class GameManager : SingletonBase<GameManager> {
 
 	public List<AudioClip> GetDividedList()
 	{
-		if (dividedClips.Count==0)
+		if (dividedClips==null || dividedClips.Count==0)
 		{
 			dividedClips = DivideClip(selectedClips, numDivides);
 		}
@@ -35,10 +35,10 @@ public class GameManager : SingletonBase<GameManager> {
 		List<AudioClip> clips = new List<AudioClip>();
 		int frequency = clip.frequency;
 		float timeLength = clip.length/ (float) divides;
-
+        Debug.Log(timeLength);
 		int samplesLength = (int)(frequency * timeLength);
 		for (int i = 0; i < divides; i++) {
-			clips.Add(AudioClip.Create(i+"", samplesLength, 1, frequency, false));
+			clips.Add(AudioClip.Create(i+"", samplesLength, clip.channels, frequency, false));
 			// clips[i] = AudioClip.Create(i+"", samplesLength, 1, frequency, false);
 		}
 

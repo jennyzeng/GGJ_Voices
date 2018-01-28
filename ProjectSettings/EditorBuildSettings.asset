@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/AR.unity
     guid: a966d2f93b0a2401d94fbfa4379f72eb
+  - enabled: 1
+    path: Assets/_Scenes/rearranging_test.unity
+    guid: 2aa57f8756f4e435baf25c273b7def2a

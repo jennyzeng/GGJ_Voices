@@ -1038,7 +1038,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Romdom Music
+  m_Text: Random Music
 --- !u!222 &1887385876
 CanvasRenderer:
   m_ObjectHideFlags: 0
